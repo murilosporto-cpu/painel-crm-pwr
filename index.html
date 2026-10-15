@@ -292,12 +292,11 @@ tr:hover td{background:var(--surf2);}
         <div style="font-size:18px;font-weight:700;margin-bottom:8px;">🎥 Vídeo Tutorial: Extraindo Relatório no PWR</div>
         <div class="sub" style="margin-bottom:16px;">Assista como fazer a extração no PWR e carregar no CRM em menos de 1 minuto:</div>
         
-        <div id="video-container" style="background:var(--surf2);border-radius:8px;overflow:hidden;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;border:1px solid var(--bd);">
-          <div style="text-align:center;padding:20px;">
-            <div style="font-size:36px;margin-bottom:8px;">🎬</div>
-            <div style="font-weight:600;font-size:15px;color:var(--tx);">Vídeo Passo a Passo</div>
-            <div class="sub" style="margin-top:4px;max-width:400px;">Grave um vídeo curto de 1 minuto demonstrando o PWR e nos envie o link (Loom ou YouTube) para colocarmos o player direto aqui!</div>
-          </div>
+        <div id="video-container" style="background:#000;border-radius:8px;overflow:hidden;border:1px solid var(--bd);">
+          <video id="player-tutorial" controls preload="metadata" playsinline style="width:100%;height:auto;max-height:480px;display:block;" poster="video_thumbnail.png">
+            <source src="tutorial_pwr.mp4" type="video/mp4">
+            Seu navegador não suporta reprodução de vídeo HTML5.
+          </video>
         </div>
 
         <div style="display:flex;justify-content:flex-end;margin-top:16px;">
@@ -2238,11 +2237,19 @@ if(HAS_DATA)apply();else emptyState();
     var btnOpen = $("btn-open-video");
     var btnClose = $("btn-close-video");
     var btnClose2 = $("btn-close-video-2");
+    var vid = $("player-tutorial");
+    function closeM(){
+      if(vModal) vModal.style.display = "none";
+      if(vid && !vid.paused) vid.pause();
+    }
     if(btnOpen && vModal){
-      btnOpen.onclick = function(){ vModal.style.display = "flex"; };
-      if(btnClose) btnClose.onclick = function(){ vModal.style.display = "none"; };
-      if(btnClose2) btnClose2.onclick = function(){ vModal.style.display = "none"; };
-      vModal.onclick = function(e){ if(e.target === vModal) vModal.style.display = "none"; };
+      btnOpen.onclick = function(){
+        vModal.style.display = "flex";
+        if(vid) vid.play().catch(function(){});
+      };
+      if(btnClose) btnClose.onclick = closeM;
+      if(btnClose2) btnClose2.onclick = closeM;
+      vModal.onclick = function(e){ if(e.target === vModal) closeM(); };
     }
   }
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", setupVideoModal);
