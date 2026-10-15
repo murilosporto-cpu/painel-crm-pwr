@@ -287,13 +287,22 @@ tr:hover td{background:var(--surf2);}
 
     <!-- MODAL DO VÍDEO TUTORIAL -->
     <div id="video-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;align-items:center;justify-content:center;padding:20px;">
-      <div class="card" style="max-width:640px;width:100%;position:relative;padding:24px;border:1px solid var(--bd);">
-        <button id="btn-close-video" style="position:absolute;top:14px;right:16px;background:transparent;border:none;color:var(--tx2);font-size:20px;cursor:pointer;">✕</button>
-        <div style="font-size:18px;font-weight:700;margin-bottom:8px;">🎥 Vídeo Tutorial: Extraindo Relatório no PWR</div>
-        <div class="sub" style="margin-bottom:16px;">Assista como fazer a extração no PWR e carregar no CRM em menos de 1 minuto:</div>
+      <div class="card" style="max-width:1100px;width:95vw;max-height:94vh;overflow-y:auto;position:relative;padding:24px;border:1px solid var(--bd);box-shadow:0 20px 40px rgba(0,0,0,0.6);">
+        <button id="btn-close-video" style="position:absolute;top:16px;right:20px;background:var(--surf2);border:1px solid var(--bd);border-radius:50%;width:32px;height:32px;color:var(--tx);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-right:40px;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-size:20px;font-weight:700;display:flex;align-items:center;gap:8px;">
+              <span>🎥</span> Vídeo Tutorial: Extraindo Relatório no PWR
+            </div>
+            <div class="sub" style="margin-top:4px;">Veja como navegar no PWR Domino's e exportar a planilha correta em 45 segundos:</div>
+          </div>
+          <button id="btn-fullscreen-video" class="btn" style="background:var(--surf2);font-size:12px;padding:6px 12px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
+            <span>⛶</span> Tela Cheia
+          </button>
+        </div>
         
-        <div id="video-container" style="background:#000;border-radius:8px;overflow:hidden;border:1px solid var(--bd);">
-          <video id="player-tutorial" controls preload="metadata" playsinline style="width:100%;height:auto;max-height:480px;display:block;" poster="video_thumbnail.png">
+        <div id="video-container" style="background:#000;border-radius:10px;overflow:hidden;border:1px solid var(--bd);box-shadow:0 8px 24px rgba(0,0,0,0.5);">
+          <video id="player-tutorial" controls preload="metadata" playsinline style="width:100%;height:auto;max-height:72vh;display:block;" poster="video_thumbnail.png">
             <source src="tutorial_pwr.mp4" type="video/mp4">
             Seu navegador não suporta reprodução de vídeo HTML5.
           </video>
@@ -2250,6 +2259,14 @@ if(HAS_DATA)apply();else emptyState();
       if(btnClose) btnClose.onclick = closeM;
       if(btnClose2) btnClose2.onclick = closeM;
       vModal.onclick = function(e){ if(e.target === vModal) closeM(); };
+    }
+    var btnFs = $("btn-fullscreen-video");
+    if(btnFs && vid){
+      btnFs.onclick = function(){
+        if(vid.requestFullscreen) vid.requestFullscreen();
+        else if(vid.webkitRequestFullscreen) vid.webkitRequestFullscreen();
+        else if(vid.msRequestFullscreen) vid.msRequestFullscreen();
+      };
     }
   }
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", setupVideoModal);
