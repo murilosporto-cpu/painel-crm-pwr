@@ -199,9 +199,122 @@ tr:hover td{background:var(--surf2);}
 </section>
 
 <section class="view" id="v-import">
-  <h2>Arraste qualquer planilha de vendas</h2>
-  <div class="dz" id="dz"><div style="font-size:40px;">+</div><div style="font-size:16px;font-weight:600;margin-top:6px;">Solte .xlsx, .xls, .csv ou .zip aqui</div><div style="font-size:13px;color:var(--acc);margin-top:2px;">pode soltar VARIOS arquivos - ou o .zip do Pulse direto (ele abre sozinho)</div><div class="sub">a IA reconhece as colunas e limpa o lixo do Pulse sozinha - ou clique para escolher</div><input type="file" id="file" accept=".xlsx,.xls,.csv,.zip" multiple style="display:none;"></div>
+  <div style="text-align:center;margin:8px 0 20px;">
+    <h2 style="font-size:22px;margin:0 0 6px;">Carregar Planilha de Vendas (PWR Domino's)</h2>
+    <div class="sub" style="font-size:14px;">Arraste um ou mais relatórios exportados do PWR para atualizar os painéis em tempo real</div>
+  </div>
+
+  <div class="dz" id="dz">
+    <div style="font-size:48px;color:var(--acc);margin-bottom:8px;">📁</div>
+    <div style="font-size:18px;font-weight:700;">Solte seu arquivo do PWR (.xlsx, .csv ou .zip) aqui</div>
+    <div style="font-size:13px;color:var(--acc);margin-top:6px;font-weight:600;">
+      💡 Pode soltar múltiplos arquivos juntos! (O painel junta tudo e remove pedidos duplicados sozinho)
+    </div>
+    <div class="sub" style="margin-top:4px;">ou clique aqui para selecionar no seu computador</div>
+    <input type="file" id="file" accept=".xlsx,.xls,.csv,.zip" multiple style="display:none;">
+  </div>
   <div id="import-out" style="margin-top:16px;"></div>
+
+  <!-- GUIA PASSO A PASSO (PAP) -->
+  <div class="card" style="margin-top:28px;padding:24px;border:1px solid var(--bd);">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;border-bottom:1px solid var(--bd);padding-bottom:16px;">
+      <div>
+        <div style="font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px;">
+          <span>📖</span> Como extrair o relatório no PWR Domino's (Passo a Passo)
+        </div>
+        <div class="sub" style="margin-top:2px;">Siga este roteiro no portal do PWR para baixar a planilha correta da sua loja</div>
+      </div>
+      <button class="btn" id="btn-open-video" style="display:flex;align-items:center;gap:6px;background:var(--surf2);border:1px solid var(--acc);color:var(--acc);font-size:13px;cursor:pointer;">
+        <span>▶️</span> Ver Vídeo Tutorial
+      </button>
+    </div>
+
+    <!-- CARDS DO PAP EM GRID -->
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+      
+      <!-- PASSO 1 -->
+      <div class="mc" style="background:var(--surf2);border:1px solid var(--bd);">
+        <span class="pill" style="background:var(--acc);color:#fff;margin-bottom:8px;">Passo 1</span>
+        <div style="font-weight:700;font-size:15px;margin-bottom:6px;">Navegar no Menu</div>
+        <div class="sub" style="margin-bottom:10px;">Acesse <b>pwr.dominos.com</b> com seu login e vá no menu:</div>
+        <div style="font-family:monospace;background:var(--surf);padding:8px 10px;border-radius:6px;border:1px solid var(--bd);font-size:13px;color:var(--acc);font-weight:700;text-align:center;">
+          Keys ➔ Sales ➔ Orders
+        </div>
+      </div>
+
+      <!-- PASSO 2 -->
+      <div class="mc" style="background:var(--surf2);border:1px solid var(--bd);">
+        <span class="pill" style="background:var(--acc);color:#fff;margin-bottom:8px;">Passo 2</span>
+        <div style="font-weight:700;font-size:15px;margin-bottom:6px;">Loja e Período</div>
+        <div class="sub" style="margin-bottom:6px;">
+          • Escolha a sua <b>Loja</b>.<br>
+          • Defina a <b>Data Inicial</b> e <b>Data Final</b> (recomendado: últimos <b>140 dias</b> ou 6 meses para o cálculo ideal de ciclo de CRM).
+        </div>
+      </div>
+
+      <!-- ALERTA DO LIMITE 10K -->
+      <div class="mc" style="background:rgba(245,158,11,0.08);border:1px solid var(--amb);">
+        <span class="pill" style="background:var(--amb);color:#000;margin-bottom:8px;">⚠️ Atenção: Limite PWR</span>
+        <div style="font-weight:700;font-size:15px;color:var(--amb);margin-bottom:6px;">Limite de 10.000 Linhas</div>
+        <div style="font-size:12px;color:var(--tx2);line-height:1.4;">
+          O PWR corta relatórios acima de 10.000 linhas. Se sua loja vender mais no período, <b>baixe em 2 ou 3 partes</b> (ex: a cada 2 meses) e arraste todos juntos para este painel!
+        </div>
+      </div>
+
+      <!-- PASSO 3 -->
+      <div class="mc" style="background:var(--surf2);border:1px solid var(--bd);">
+        <span class="pill" style="background:var(--grn);color:#fff;margin-bottom:8px;">Passo 3</span>
+        <div style="font-weight:700;font-size:15px;margin-bottom:6px;">Filtro de Status</div>
+        <div class="sub" style="margin-bottom:8px;">No filtro <b>All Orders</b>, selecione obrigatoriamente:</div>
+        <div style="font-family:monospace;background:var(--surf);padding:8px 10px;border-radius:6px;border:1px solid var(--bd);font-size:13px;color:var(--grn);font-weight:700;text-align:center;">
+          Status ➔ Completed Orders
+        </div>
+        <div style="font-size:11px;color:var(--tx2);margin-top:6px;">(Garante apenas pedidos faturados, sem cancelados ou testes)</div>
+      </div>
+
+      <!-- PASSO 4 -->
+      <div class="mc" style="background:var(--surf2);border:1px solid var(--bd);">
+        <span class="pill" style="background:var(--acc);color:#fff;margin-bottom:8px;">Passo 4</span>
+        <div style="font-weight:700;font-size:15px;margin-bottom:6px;">Exportar para Excel</div>
+        <div class="sub" style="margin-bottom:8px;">Para salvar, clique na opção de exportação:</div>
+        <div style="font-family:monospace;background:var(--surf);padding:8px 10px;border-radius:6px;border:1px solid var(--bd);font-size:13px;color:var(--tx);font-weight:700;text-align:center;">
+          Export to Excel ➔ All Columns
+        </div>
+        <div style="font-size:11px;color:var(--tx2);margin-top:6px;">Salve o arquivo <b>.xlsx</b> e arraste para o quadro acima!</div>
+      </div>
+
+    </div>
+
+    <!-- MODAL DO VÍDEO TUTORIAL -->
+    <div id="video-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;align-items:center;justify-content:center;padding:20px;">
+      <div class="card" style="max-width:640px;width:100%;position:relative;padding:24px;border:1px solid var(--bd);">
+        <button id="btn-close-video" style="position:absolute;top:14px;right:16px;background:transparent;border:none;color:var(--tx2);font-size:20px;cursor:pointer;">✕</button>
+        <div style="font-size:18px;font-weight:700;margin-bottom:8px;">🎥 Vídeo Tutorial: Extraindo Relatório no PWR</div>
+        <div class="sub" style="margin-bottom:16px;">Assista como fazer a extração no PWR e carregar no CRM em menos de 1 minuto:</div>
+        
+        <div id="video-container" style="background:var(--surf2);border-radius:8px;overflow:hidden;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;border:1px solid var(--bd);">
+          <div style="text-align:center;padding:20px;">
+            <div style="font-size:36px;margin-bottom:8px;">🎬</div>
+            <div style="font-weight:600;font-size:15px;color:var(--tx);">Vídeo Passo a Passo</div>
+            <div class="sub" style="margin-top:4px;max-width:400px;">Grave um vídeo curto de 1 minuto demonstrando o PWR e nos envie o link (Loom ou YouTube) para colocarmos o player direto aqui!</div>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;margin-top:16px;">
+          <button class="btn pri" id="btn-close-video-2">Entendi, fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BARRA LGPD & SEGURANÇA -->
+    <div style="margin-top:20px;padding:12px 16px;background:var(--surf2);border-radius:8px;display:flex;align-items:center;gap:12px;font-size:12px;color:var(--tx2);">
+      <span style="font-size:18px;">🔒</span>
+      <div>
+        <b style="color:var(--tx);">100% Seguro e em Conformidade com a LGPD:</b> Todo o processamento das planilhas é executado localmente na memória do seu próprio navegador. Nenhum dado de cliente, telefone ou faturamento é enviado ou armazenado em servidores externos.
+      </div>
+    </div>
+
+  </div>
 </section>
 
 
@@ -440,7 +553,15 @@ function handleRows(rows, store){
     var svcTot=Object.keys(svcCount).reduce(function(a,k){return a+svcCount[k];},0);
     if(svcTot)html+='<div class="foot">Tipo de servico: '+["D","C","H","P","I"].filter(function(k){return svcCount[k];}).map(function(k){return SL[k]+" "+svcCount[k].toLocaleString("pt-BR");}).join(" - ")+'</div>';
     html+='<div class="foot">Lido em '+rows.length.toLocaleString("pt-BR")+' linhas. Referencia: '+REF.toLocaleDateString("pt-BR")+'.</div>';
-    try{loadAll(buildAppData(rows,map));setStore(store);html+='<div class="card" style="border-color:var(--grn);margin-top:10px;"><b style="color:var(--grn)">Pronto!</b> Loja <b>'+(store||"importada")+'</b> carregada. Painel, Central, Radar e Marketing atualizados. Navegue pelas abas.</div>';}
+    try{
+      loadAll(buildAppData(rows,map));
+      setStore(store);
+      html+='<div class="card" style="border-color:var(--grn);margin-top:10px;"><b style="color:var(--grn)">Pronto!</b> Loja <b>'+(store||"importada")+'</b> carregada com sucesso! Redirecionando para o Painel...</div>';
+      setTimeout(function(){
+        var tabP = document.querySelector('.tab[data-v="painel"]');
+        if(tabP) tabP.click();
+      }, 1000);
+    }
     catch(e){html+='<div class="card" style="border-color:var(--red);margin-top:10px;color:var(--red)">Resumo lido, mas houve erro ao montar os paineis: '+e.message+'</div>';}
   } else html+='<div class="foot" style="color:var(--amb)">Nao consegui mapear data+valor+nome. A planilha precisa ter ao menos essas 3 informacoes.</div>';
   html+="</div>";$("import-out").innerHTML=html;
@@ -2110,6 +2231,24 @@ if(HAS_DATA)apply();else emptyState();
   }
 })();
 
+// Modal do video tutorial do PWR
+(function(){
+  function setupVideoModal(){
+    var vModal = $("video-modal");
+    var btnOpen = $("btn-open-video");
+    var btnClose = $("btn-close-video");
+    var btnClose2 = $("btn-close-video-2");
+    if(btnOpen && vModal){
+      btnOpen.onclick = function(){ vModal.style.display = "flex"; };
+      if(btnClose) btnClose.onclick = function(){ vModal.style.display = "none"; };
+      if(btnClose2) btnClose2.onclick = function(){ vModal.style.display = "none"; };
+      vModal.onclick = function(e){ if(e.target === vModal) vModal.style.display = "none"; };
+    }
+  }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", setupVideoModal);
+  else setupVideoModal();
+})();
+
 // Auto-carregamento de amostra se disponivel localmente
 window.addEventListener("DOMContentLoaded", function(){
   fetch("dados_amostra.json").then(function(r){return r.json();}).then(function(json){
@@ -2133,9 +2272,15 @@ window.addEventListener("DOMContentLoaded", function(){
         };
       });
       handleRows(rows, json.store || "19691 Goiânia 1");
+    } else {
+      var tabImp = document.querySelector('.tab[data-v="import"]');
+      if(tabImp) tabImp.click();
     }
   }).catch(function(e){
     console.log("Modo estatico ativo (arraste arquivos para carregar):", e);
+    // Ativa automaticamente a aba de Importação para novos acessos na nuvem
+    var tabImp = document.querySelector('.tab[data-v="import"]');
+    if(tabImp) tabImp.click();
   });
 });
 </script>
